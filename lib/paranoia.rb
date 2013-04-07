@@ -13,6 +13,10 @@ module Paranoia
     def with_deleted
       scoped.tap { |x| x.default_scoped = false }
     end
+
+    def without_deleted
+      scoped.tap { |x| x.default_scoped = false }.where("#{self.table_name}.deleted_at is null")
+    end
   end
 
   def destroy
