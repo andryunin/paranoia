@@ -42,11 +42,11 @@ module Paranoia
 end
 
 class ActiveRecord::Base
-  def self.acts_as_paranoid
+  def self.acts_as_paranoid(options={})
     alias :destroy! :destroy
     alias :delete!  :delete
     include Paranoia
-    default_scope :conditions => { :deleted_at => nil }
+    default_scope :conditions => { :deleted_at => nil } unless options[:disable_default_scope]
   end
 
   def self.paranoid? ; false ; end
